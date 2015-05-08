@@ -4,9 +4,9 @@
 		<title>La vida de Gonzalo</title>
 		<style type="text/css">
 		body {background-color: white}
-		h4 {color: black}
+		h4 {color: black; text-align: center}
 		pre {color: black}
-		p {color: black}
+		p {color: black; margin: 32px}
 		</style>
 	</head>
 
@@ -14,12 +14,21 @@
 		<h2>Gonzalo Gómez Abejón</h2>
 		<h3>Curriculum vitae</h3>
 		<br/>
-		<h4>Datos personales</h4>
-		<pre title="datos personales" style="font-family:verdana">
-Fecha de nacimiento:	24 de diciembre de 1997
-Residencia:		C/Galileo Nº80 6º D (28015, Madrid, España)
-Teléfono:			3*17*251*48197
-		</pre>
+		<h4 style="text-align:center">Datos personales</h4>
+		<table title="datos personales" style="font-family:verdana">
+			<tr>
+				<td>Fecha de nacimiento:></td>
+				<td>24 de diciembre de 1997</td>
+			</tr>
+			<tr>
+				<td>Residencia:</td>
+				<td>C/Galileo Nº80 6º D (Madrid, España)</td>
+			</tr>
+			<tr>
+				<td>Teléfono:</td>
+				<td>3*17*251*48197</td>
+			</tr>
+		</table>
 		<form>
 			<input type="button" style="font-family:verdana" value="Edad" onclick="alerta()">
 		</form>
