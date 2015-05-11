@@ -17,25 +17,6 @@
 		<h2>Gonzalo Gómez Abejón</h2>
 		<h3 style="text-align:center">Curriculum vitae</h3>
 		<br/>
-<!--		<h4>Datos personales</h4>
-		<table title="datos personales" style="margin-left:24px" style="width: 45%">
-			<tr>
-				<td>Fecha de nacimiento:</td>
-				<td>24 de diciembre de 1997</td>
-			</tr>
-			<tr>
-				<td>Residencia:</td>
-				<td>C/Galileo Nº80 6º D (Madrid, España)</td>
-			</tr>
-			<tr>
-				<td>Teléfono:</td>
-				<td>3*17*251*48197</td>
-			</tr>
-		</table> -->
-
-<!--		<form style="margin-left:24px">
-			<input type="button" style="font-family:verdana" value="Edad" onclick="alerta()">
-		</form> -->
 		<table style="width: 100%">
 			<tr>
 				<td>
@@ -87,6 +68,64 @@
 					</div>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<h4>Otros datos de interés</h4>
+					<ul>
+						<li>Co-fundador de La Secta</li>
+						<li>Ideología esteta, sintoísta e intuicionista</li>
+						<li>Crítico de la química y el formalismo</li>
+						<li>Autor de la teoría de las gallinas</li>
+					</ul>
+					<h4>Datos personales</h4>
+					<table title="datos personales" style="margin-left:24px" style="width: 45%">
+						<tr>
+							<td>Residencia:</td>
+							<td>C/Galileo Nº80 6º D (Madrid, España)</td>
+						</tr>
+						<tr>
+							<td>Teléfono:</td>
+							<td>3*17*251*48197</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<form action="/cgi-bin/test.cgi" name="Formulario" onsubmit="nada();">
+						<table cellspacing="2" cellpadding="2">
+							<tr style="text-align:center"><h4>Contrate a este individuo</h4></tr>
+							<tr>
+								<td align="right">Nombre de la institución</td>
+								<td><input type="text" name="Nombre" /></td>
+							</tr>
+							<tr>
+								<td align="right">Empleo</td>
+								<td><input type="text" name="Job" /></td>
+							</tr>
+							<tr>
+								<td align="right">Email</td>
+								<td><input type="text" name="EMail" /></td>
+							</tr>
+							<tr>
+								<td align="right">Salario</td>
+								<td>
+									<select name="Clase_social">
+									<option value="-1" selected>[PINCHE AQUÍ]</option>
+									<option value="1">Mínimo</option>
+									<option value="2">~1000 &euro </option>
+									<option value="3">~1500 &euro </option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:center"><input type="submit" value="Submit" /></td>
+							</tr>
+						</table>
+					</form>
+					<!-- <form style="margin-left:24px">
+						<input type="button" style="font-family:verdana" value="Edad" onclick="alerta()">
+					</form> -->
+				</td>
+			</tr>
 		</table>
 		<script Language=Javascript>
 		function nada(){}
@@ -95,5 +134,5 @@
 		}
 		</script>
 	</body>
-	<script type="text/javascript" src="/script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 <html>
