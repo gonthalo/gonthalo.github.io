@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>La vida de Gonzalo</title>
+		<title>La zorra y las uvas</title>
 		<link href="img/Sect_symbol2.jpg" rel="icon" >
 		<style type="text/css">
-		body {background-color: black; color: white}
-		h2 {color:lime;text-align:center}
-		h4 {color: yellow; margin-left: 80px}
-		li {color: white}
+		body {background-color: white; color: black}
+		#wrapper{background-color: white; /*width: 1200px;*/ float: center}
+		#news{font-family: courier; text-align:left; margin-left: 16%; margin-right: 16%}
+		div.marco{border: 2px solid black; border-radius: 3px; padding-left: 5%; padding-right: 5%}
+		h2 {color:black;text-align:center}
+		h4 {color: green; margin-left: 80px}
+		li {color: black}
 		p {color: black; margin-right: 32px}
 		tr, td {padding: 2px}
 		input, select {border-radius: 3px; color: black; font-family: verdana; background-color: white}
@@ -15,143 +18,32 @@
 		</style>
 	</head>
 
-	<body style="font-family:verdana">
+	<body style="font-family:verdana" align="center">
 		<br/>
-		<h2>Gonzalo Gómez Abejón</h2>
-		<h3 style="text-align:center">Curriculum vitae</h3>
-		<br/>
-		<table style="width: 100%">
-			<tr>
-				<td>
-					<div id="estudios">
-						<h4>Estudios</h4>
-						<ul>
-							<li>2003-2012: Colegio Decroly (Madrid)</li>
-							<li>2012-2015: IES Ramiro de Maeztu (Madrid)</li>
-							<li>2004-2014: Conservatorio Profesional de música Amaniel (Madrid)</li>
-							<li>2015-2019: Universidad Complutense de Madrid</li>
-						</ul>
-						<h4>Titulación</h4>
-						<ul>
-							<li>Bachillerato Internacional</li>
-							<li>Bachillerato Español (LOE)</li>
-							<li>Grado Profesional en violonchelo y composición</li>
-							<li><i>First certificate in english</i></li>
-						</ul>
-						<h4>Premios</h4>
-						<ul>
-							<li>Premio extraordinario de la Comunidad de Madrid (ESO) en 2013</li>
-							<li>Primer premio del Concurso Intercentros en 2013 y 2015</li>
-							<li>Tercer premio del Concurso Primavera de Matemáticas 2015</li>
-							<li><!--13<sup>er</sup> puesto-->Medalla de plata en la Olimpiada Matemática Española 2014</li>
-						</ul>
-					</div>
-					<br/>
-					<br/>
-				</td>
-				<td>
-					<div id="habilidades">
-						<h4>Idiomas</h4>
-						<ul>
-							<li>Español nativo</li>
-							<li>Inglés nivel C1</li>
-							<li>Francés nivel básico</li>
-							<!--<li>Bable nivel B1</li>-->
-						</ul>
-						<h4>Programación</h4>
-						<ul>
-							<li>HTML5/Javascript nivel intermedio</li>
-							<li>C++ nivel intermedio</li>
-							<li>BASIC (TI) nivel alto</li>
-							<li>LOGO nivel intermedio</li>
-						</ul>
-						<h4>Obra y publicaciones</h4>
-						<ul>
-							<li><a href="https://github.com/gonthalo/gonthalo.github.io/blob/master/Monograf%C3%ADa.pdf" target="_blank" >Monografía</a> sobre objetos fractales en la computación</li>
-							<li>Relatos alegóricos: <a href="https://github.com/gonthalo/gonthalo.github.io/blob/master/Delirios.pdf" target="_blank" >Delirios</a></li>
-							<li>Algunas <a href="https://www.noteflight.com/scores/view/5f34e8cb1dd51a681695276847cfc53a9f239b0b" target="_blank" >composiciones musicales</a></li>
-							<li>Recopilación de <a href="http://gonthalo.github.io/Poemas/" target="_blank">poemas</a></li>
-							<li>Varios proyectos de informática</li>
-						</ul>
-					</div>
-					<br/>
-					<br/>
-				</td>
-				<td><br/></td>
-			</tr>
-			<tr>
-				<td>
-					<h4>Otros datos de interés</h4>
-					<ul>
-						<li>Co-fundador de La Secta</li>
-						<li>Ideología esteta, sintoísta e intuicionista</li>
-						<li>Crítico de la química y el formalismo</li>
-						<li>Co-autor de la teoría de las <a href="http://gonthalo.github.io/Gallinas">gallinas</a></li>
-					</ul>
-					<h4>Datos personales</h4>
-					<table title="datos personales" style="margin-left:24px" style="width: 45%">
-						<tr>
-							<td>Residencia:</td>
-							<td>C/Galileo Nº80 6º D (Madrid, España)</td>
-						</tr>
-						<tr>
-							<td>Teléfono:</td>
-							<td>3*17*251*48197</td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<form action="nada()" name="Formulario" onsubmit="alerta()" style="text-color:black">
-						<table cellspacing="2" cellpadding="2">
-							<tr style="text-align:center"><h4>Contrate a este individuo</h4></tr>
-							<tr>
-								<td align="right">Nombre de la institución</td>
-								<td><input type="text" name="Nombre" /></td>
-							</tr>
-							<tr>
-								<td align="right">Empleo</td>
-								<td><input type="text" name="Job" /></td>
-							</tr>
-							<tr>
-								<td align="right">Email</td>
-								<td><input type="text" name="EMail" /></td>
-							</tr>
-							<tr>
-								<td align="right">Salario</td>
-								<td>
-									<select name="Clase_social">
-									<option value="-1" selected>[PINCHE AQUÍ]</option>
-									<option value="1">Mínimo</option>
-									<option value="2">~1000&euro;</option>
-									<option value="3">~1500&euro;</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td align="left"><input style="text-color:black" type="submit" value="Submit" /></td>
-							</tr>
-						</table>
-					</form>
-					<!-- <form style="margin-left:24px">
-						<input type="button" style="font-family:verdana" value="Edad" onclick="alerta()">
-					</form> -->
-				</td>
-			</tr>
-		</table>
-		<br/>
-		<h4 style="text-align:center; margin-left:0px">Algunos proyectos de programación:</h4>
-		<br/>
-		<a href="http://gonthalo.github.io/Gallinas"><div width="100%" align="center" style="background-color:white; border-radius:4px"><img align="center" src="img/Título3.png"></div></a>
-		<a href="http://gonthalo.github.io/POING"><div width="100%" align="center" style="border-radius:4px"><img align="center" src="img/PoingImg.png"></div></a>
-		<a href="http://gonthalo.github.io/Motorway-Problem"><div width="100%" align="center" style="background-color:white; border-radius:4px"><img align="center" src="img/Motorway.png"></div></a>
-		<br/>
-		<script Language=Javascript>
-		function nada(){}
-		function alerta(){
-			alert("Este botón no functiona");
-		}
-		</script>
+		<div id="wrapper">
+			<div align="center">
+				<img src="img/Titulito.png">
+			</div>
+			<br/>
+			<div id="news">
+				<div class="marco">
+					<h3>La Otra Qu&iacute;mica: Un esperpento del formalismo presente en esta ciencia menor</h3>
+					<p>En efecto. No ha bastado que las interminables clases tocaran a su fin para que la qu&iacute;mica recobrara la escasa dignidad que tuviera alguna vez. Sin temor a crear controversia o a parecer idiotas, les proporcionamos un medio para reirse descaradamente de los qu&iacute;micos y sus andanzas.</p>
+					<a href="http://gonthalo.github.io/Gallinas"><div width="100%" align="center" style="background-color:white; border-radius:4px"><img align="center" src="img/Título3.png"></div></a>
+				</div>
+				<div class="marco">
+					<h3>POING (Particula Operativa In Nomine Gauss)</h3>
+					<p>Podr&iacute;a entenderse como un juego, como una simulaci&oacute;n o como un intento de visualizar los movimientos que sufren diversas part&iacute;culas ante fuerzas subat&oacute;micas. No es nada de lo anterior. Se trata m&aacute;s bien de filosof&iacute;a en estado puro. Dejemos que las reglas sin sentido del mundo cobren significado en nuestras cabecitas.</p>
+					<a href="http://gonthalo.github.io/POING"><div width="100%" align="center" style="border-radius:4px"><img align="center" src="img/PoingImg.png"></div></a>
+				</div>
+				<div class="marco">
+					<h3>La Otra Qu&iacute;mica: Un desdichado esperpento del formalismo presente en esta ciencia menor</h3>
+					<p>En efecto. No ha bastado que las interminables clases tocaran a su fin para que la qu&iacute;mica recobrara la escasa dignidad que tuviera alguna vez. Sin temor a crear controversia o a parecer idiotas, les proporcionamos un medio para reirse descaradamente de los qu&iacute;micos y sus andanzas.</p>
+					<a href="http://gonthalo.github.io/Motorway-Problem"><div width="100%" align="center" style="background-color:white; border-radius:4px"><img align="center" src="img/Motorway.png"></div></a>
+				</div>
+			</div>
+			<br/>
+		</div>
 	</body>
 	<script type="text/javascript" src="script.js"></script>
 <html>
