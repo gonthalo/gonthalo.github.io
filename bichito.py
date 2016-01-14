@@ -17,7 +17,7 @@ def get_next_link(page):
 	v1 = page.find('<a href="http')
 	if v1 == -1:
 		return False, 0
-	print v1, page[v1:v1 + 45]
+	#print v1, page[v1:v1 + 45]
 	v2 = page.find('"', v1)
 	v3 = page.find('"', v2 + 1)
 	return page[v2 + 1:v3], v3 + 1
@@ -45,6 +45,15 @@ def showlist(lista):
 	for el in lista:
 		print el
 
+def apariciones(word, text):
+	count = 0
+	v1 = -len(word)
+	while True:
+		v1 = text.find(word, v1 + len(word))
+		if v1 == -1:
+			return count
+		count += 1
+
 def crawl_linear(links, maxi):
 	tocrawl = copy(links)
 	count = 0
@@ -61,7 +70,7 @@ def crawl_linear(links, maxi):
 
 def crawl_depth(links, max_depth):
 	tocrawl = copy(links)
-	depth = 0
+	depth = -1
 	crawled = []
 	last = tocrawl[-1]
 	while depth < max_depth and tocrawl:
@@ -69,8 +78,8 @@ def crawl_depth(links, max_depth):
 		crawled.append(tocrawl[0])
 		new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
 		tocrawl = tocrawl + new_l
-		if links.pop(0) == last:
-			last = tocrawl[0]
+		if tocrawl.pop(0) == last:
+			last = tocrawl[-1]
 			depth += 1
 	return crawled
 
@@ -80,11 +89,10 @@ def easysearch():
 	while True:
 		word = raw_input()
 		if word=='fin de la cita':
-			break
-		else:
-			lis.append(word)
-	return lis
+			return lis
+		lis.append(word)
 
-print crawl_linear(['http://gonthalo.github.io', 'http://github.com/gonthalo'], 10)
-print crawl_linear(['http://www.google.es/'], 10)
-print crawl_linear(['http://internacional.elpais.com/'], 50)
+#print crawl_linear(['http://gonthalo.github.io', 'http://github.com/gonthalo'], 10)
+#print crawl_linear(['http://www.google.es/'], 10)
+print crawl_linear(['http://internacional.elpais.com/'], 10)
+print crawl_depth(['http://internacional.elpais.com/'], 1)
