@@ -16,13 +16,13 @@ function iniciar(){
 }
 
 function boton(strin, x0, y0){
-	matriz[x0][y0].innerHTML = '<input type="button" value="" onclick="' + strin + '">';
+	document.getElementById("fil" + x0 + "col" + y0).innerHTML = '<input type="button" value="" onclick="' + strin + '">';
 }
 
 function nada(){}
 
 iniciar();
 
-boton('window.location="http://gonthalo,github.io"', 2, 3);
+boton('window.location="http://gonthalo.github.io"', 2, 3);
 
 window.setInterval(nada(), 200);
