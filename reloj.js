@@ -23,6 +23,8 @@ function nada(){}
 
 iniciar();
 
-boton('window.location="http://gonthalo.github.io"', 2, 3);
+function enlace(){
+	window.location="http://gonthalo.github.io";
+}
 
-window.setInterval(nada(), 200);
+boton("enlace()", 2, 3);
