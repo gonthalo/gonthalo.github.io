@@ -8,9 +8,10 @@ def get_html(some_url):
 	"""except urllib2.HTTPError, e:print e.fp.read()return 'muymal'"""
 	try:
 		page = urllib2.urlopen(some_url)
+		return page.read()
 	except:
-		print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
-		return 'muymal'
+		#print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
+		return ''
 	return page.read()
 
 def get_next_link(page):
@@ -28,11 +29,7 @@ def get_links(page):
 	while True:
 		url, v1 = get_next_link(page)
 		if url:
-			try:
-				#htm = get_html(url)
-				links.append(url)
-			except:
-				print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
+			links.append(url)
 			page = page[v1:]
 		else:
 			break
@@ -54,17 +51,27 @@ def apariciones(word, text):
 			return count
 		count += 1
 
+def buscar(urls, words):
+	freqs = []
+	for word in words:
+		tot = 0
+		for url in urls:
+			tot += apariciones(word, get_html(url))
+		freqs.append(tot)
+	return freqs
+
 def crawl_linear(links, maxi):
 	tocrawl = copy(links)
 	count = 0
 	crawled = []
 	while count < maxi and tocrawl:
-		new_l = get_links(get_html(tocrawl[0]))
-		crawled.append(tocrawl.pop(0))
-		new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
-		showlist(new_l)
-		tocrawl = tocrawl + new_l
-		count += 1
+		pagina = get_html(tocrawl[0])
+		if pagina != '':
+			new_l = get_links(pagina)
+			crawled.append(tocrawl.pop(0))
+			new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
+			tocrawl = tocrawl + new_l
+			count += 1
 	return crawled
 
 
@@ -74,10 +81,12 @@ def crawl_depth(links, max_depth):
 	crawled = []
 	last = tocrawl[-1]
 	while depth < max_depth and tocrawl:
-		new_l = get_links(get_html(tocrawl[0]))
-		crawled.append(tocrawl[0])
-		new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
-		tocrawl = tocrawl + new_l
+		pagina = get_html(tocrawl[0])
+		if (pagina != ''):
+			new_l = get_links(pagina)
+			crawled.append(tocrawl[0])
+			new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
+			tocrawl = tocrawl + new_l
 		if tocrawl.pop(0) == last:
 			last = tocrawl[-1]
 			depth += 1
@@ -92,7 +101,18 @@ def easysearch():
 			return lis
 		lis.append(word)
 
+
 #print crawl_linear(['http://gonthalo.github.io', 'http://github.com/gonthalo'], 10)
 #print crawl_linear(['http://www.google.es/'], 10)
-print crawl_linear(['http://internacional.elpais.com/'], 10)
-print crawl_depth(['http://internacional.elpais.com/'], 1)
+elpais_urls = crawl_linear(['http://internacional.elpais.com/'], 20)
+principal = get_html('http://internacional.elpais.com/')
+tree = html.fromstring(principal)
+nice_content = tree.xpath('//a[@title="Ver noticia"]')
+print [link.get("href") for link in nice_content]
+muchas_url = [link.get("href") for link in nice_content]
+#print crawl_depth(['http://internacional.elpais.com/'], 1)
+countries = ['Alemania', 'Espa&ntilde;a', 'Gran Breta&ntilde;a', 'Francia', 'Italia', 'Grecia', 'Catalu&ntilde;a', 'Portugal']
+countries += ['Brasil', 'Argentina', 'Chile', 'Ecuador', 'Cuba', 'Venezuela', 'Estados Unidos', 'Mexico', 'Canad&aacute;']
+countries += ['Rusia', 'India', 'Indonesia', 'China', 'Bangladesh', 'Jap&oacute;n', 'Iraq', 'Ir&aacute;n', 'Australia']
+for country in countries:
+	print country, '-'*(20 - len(country)), buscar(elpais_urls, [country]), buscar(muchas_url, [country])
