@@ -21,7 +21,10 @@ div.marco{
 	margin-bottom: 2%
 }
 input {
-	
+	font-family: arial;
+}
+button {
+	background-color: red;
 }
 h2 {
 	color:black;
@@ -47,6 +50,7 @@ table {
 }
 tr, td {
 	padding: 5px;
+	border-radius: 4px;
 }
 input, select {
 	border-radius: 3px;
