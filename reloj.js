@@ -1,8 +1,8 @@
 var tabla = document.getElementById("tabla");
 var filas = [];
 var matriz = [];
-var enlaces = ["http://gonthalo.github.io", "http://xkcd.com", "http://gonthalo.github.io/eSdlB.html"];
-var colorines = ["rgb(5, 250, 100)", "rgb(5, 20, 200)", "white"]
+var enlaces = ["http://gonthalo.github.io", "http://xkcd.com", "http://gonthalo.github.io/eSdlB.html", "http://github.com/gonthalo?tab=repositories", "http://www.publico.es", "http://www.youtube.com", "http://www.wolframalpha.com", "http://www.eldiario.es", "http://mail.google.com/mail/u/0/", "http://cisne.sim.ucm.es/", "http://www.w3schools.com", "http://www.udacity.com"];
+var colorines = ["rgb(5, 200, 100)", "rgb(114, 132, 171)"/*rgb(144, 168, 202)"*/, "white", "rgb(239, 222, 89)", "purple", "rgb(234, 0, 0)", "rgb(225, 75, 57)", "rgb(0, 86, 149)", "rgb(85, 85, 85)", "rgb(170, 170, 170)", "rgb(115, 173, 33)", "rgb(226, 119, 26)"];
 var num_filas = 15;
 var num_col = 15;
 
@@ -47,4 +47,4 @@ function nada(){}
 
 iniciar();
 boton(0, 2, 3);
-window.setInterval(actualizar, 200);
+window.setInterval(actualizar, 160);
