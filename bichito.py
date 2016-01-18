@@ -3,6 +3,7 @@
 """although I don't Us dem cose aim sach ah bud person"""
 import urllib, urllib2
 from lxml import html
+import re
 
 def get_html(some_url):
 	"""except urllib2.HTTPError, e:print e.fp.read()return 'muymal'"""
@@ -10,12 +11,12 @@ def get_html(some_url):
 		page = urllib2.urlopen(some_url)
 		return page.read()
 	except:
-		#print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
+		print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
 		return ''
 	return page.read()
 
 def get_next_link(page):
-	v1 = page.find('<a href="http')
+	v1 = page.find('href="http')
 	if v1 == -1:
 		return False, 0
 	#print v1, page[v1:v1 + 45]
@@ -60,14 +61,14 @@ def buscar(urls, words):
 		freqs.append(tot)
 	return freqs
 
-def crawl_linear(links, maxi):
+def crawl_linear(links, maxi, funct):
 	tocrawl = copy(links)
 	count = 0
 	crawled = []
 	while count < maxi and tocrawl:
 		pagina = get_html(tocrawl[0])
 		if pagina != '':
-			new_l = get_links(pagina)
+			new_l = funct(pagina)
 			crawled.append(tocrawl.pop(0))
 			new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
 			tocrawl = tocrawl + new_l
@@ -75,7 +76,7 @@ def crawl_linear(links, maxi):
 	return crawled
 
 
-def crawl_depth(links, max_depth):
+def crawl_depth(links, max_depth, funct):
 	tocrawl = copy(links)
 	depth = -1
 	crawled = []
@@ -83,7 +84,7 @@ def crawl_depth(links, max_depth):
 	while depth < max_depth and tocrawl:
 		pagina = get_html(tocrawl[0])
 		if (pagina != ''):
-			new_l = get_links(pagina)
+			new_l = funct(pagina)
 			crawled.append(tocrawl[0])
 			new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
 			tocrawl = tocrawl + new_l
@@ -93,7 +94,7 @@ def crawl_depth(links, max_depth):
 	return crawled
 
 
-def easysearch():
+def easyinput():
 	lis = []
 	while True:
 		word = raw_input()
@@ -104,15 +105,42 @@ def easysearch():
 
 #print crawl_linear(['http://gonthalo.github.io', 'http://github.com/gonthalo'], 10)
 #print crawl_linear(['http://www.google.es/'], 10)
-elpais_urls = crawl_linear(['http://internacional.elpais.com/'], 20)
-principal = get_html('http://internacional.elpais.com/')
-tree = html.fromstring(principal)
-nice_content = tree.xpath('//a[@title="Ver noticia"]')
-print [link.get("href") for link in nice_content]
-muchas_url = [link.get("href") for link in nice_content]
-#print crawl_depth(['http://internacional.elpais.com/'], 1)
-countries = ['Alemania', 'Espa&ntilde;a', 'Gran Breta&ntilde;a', 'Francia', 'Italia', 'Grecia', 'Catalu&ntilde;a', 'Portugal']
-countries += ['Brasil', 'Argentina', 'Chile', 'Ecuador', 'Cuba', 'Venezuela', 'Estados Unidos', 'Mexico', 'Canad&aacute;']
-countries += ['Rusia', 'India', 'Indonesia', 'China', 'Bangladesh', 'Jap&oacute;n', 'Iraq', 'Ir&aacute;n', 'Australia']
-for country in countries:
-	print country, '-'*(20 - len(country)), buscar(elpais_urls, [country]), buscar(muchas_url, [country])
+def crawl_elpais_inter():
+	elpais_urls = crawl_linear(['http://internacional.elpais.com/'], 40, get_links)
+	principal = get_html('http://internacional.elpais.com/')
+	tree = html.fromstring(principal)
+	nice_content = tree.xpath('//a[@title="Ver noticia"]')
+	muchas_url = filter(lambda x: get_html(x)!="", [link.get("href") for link in nice_content])
+	print muchas_url
+	countries = ['Alemania', 'Espa&ntilde;a', 'Gran Breta&ntilde;a', 'Francia', 'Italia', 'Grecia', 'Catalu&ntilde;a', 'Portugal']
+	countries += ['Brasil', 'Argentina', 'Chile', 'Ecuador', 'Cuba', 'Venezuela', 'Estados Unidos', 'M&eacute;xico', 'Canad&aacute;']
+	countries += ['Rusia', 'India', 'Indonesia', 'China', 'Bangladesh', 'Jap&oacute;n', 'Iraq', 'Ir&aacute;n', 'Australia']
+	for country in countries:
+		uno = buscar(elpais_urls, [country])[0]
+		dos = buscar(muchas_url, [country])[0]
+		print '\n ' + country, '-'*(20 - len(country)), uno, '_'*(4 - len(str(uno))), dos, '_'*(4 - len(str(dos))),
+		if uno!=0:
+			print float(dos)/uno,
+
+"""
+def isuser(url):
+	if url[:20]=="https://twitter.com/":
+		if '/' not in url[20:] and "." not in url[20:]:
+			return True
+	return False
+
+def get_twitter_users(page):
+	lis = get_links(page)
+	return filter(isuser, lis)
+
+def crawl_twitter(cuenta, n_l):
+	lis = crawl_linear(["https://twitter.com/" + cuenta + "/"], n_l, get_links)
+	print lis
+
+print get_twitter_users(get_html("https://twitter.com/Mhemeroteca"))
+print get_html("https://twitter.com/Mhemeroteca")
+crawl_twitter("Mhemeroteca", 30)
+"""
+
+
+crawl_elpais_inter()
