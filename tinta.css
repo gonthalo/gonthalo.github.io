@@ -61,3 +61,22 @@ iframe {
 	border: none;
 	padding: 0px;
 }
+a:link {
+	color: blue;
+    text-decoration: bold;
+}
+
+a:visited {
+	color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+	color: rgb(5, 250, 100);
+    text-decoration: underline;
+}
+
+a:active {
+	color: white;
+    text-decoration: underline;
+}
