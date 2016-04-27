@@ -1,3 +1,12 @@
+alf = 'zyxwvutsrqponmlkjihgfedcba ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+def parsematr(matr):
+	for ii in range(len(matr)):
+		for jj in range(len(matr[0])):
+			matr[ii][jj] = alf.index(matr[ii][jj]) - 26
+	return matr
+print parsematr([['a', 'B'], ['r', 'W']])
+
 def getsum(matr, p1, p2):
 	x1, y1 = p1
 	x2, y2 = p2
