@@ -5,18 +5,20 @@ import urllib, urllib2
 from lxml import html
 import re
 
+linkstart = 'href="/wiki/'
+
 def get_html(some_url):
 	"""except urllib2.HTTPError, e:print e.fp.read()return 'muymal'"""
 	try:
 		page = urllib2.urlopen(some_url)
 		return page.read()
 	except:
-		print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
+		#print 'Los rusos han tratado de detener al crawler. Muy pero que muy mal.'
 		return ''
 	return page.read()
 
 def get_next_link(page):
-	v1 = page.find('href="http')
+	v1 = page.find(linkstart)
 	if v1 == -1:
 		return False, 0
 	#print v1, page[v1:v1 + 45]
@@ -102,25 +104,70 @@ def easyinput():
 			return lis
 		lis.append(word)
 
+def start_dir(page):
+	for ii in range(1, len(page) - 1):
+		if page[ii]=='/':
+			if page[ii+1]!='/' and page[ii-1]!='/':
+				return page[:ii]
+
 
 #print crawl_linear(['http://gonthalo.github.io', 'http://github.com/gonthalo'], 10)
 #print crawl_linear(['http://www.google.es/'], 10)
-def crawl_elpais_inter():
-	elpais_urls = crawl_linear(['http://internacional.elpais.com/'], 40, get_links)
-	principal = get_html('http://internacional.elpais.com/')
+
+def crawl_elpais(starturl):
+	linkstart = 'href="http'
+	elpais_urls = crawl_linear([starturl], 40, get_links)
+	principal = get_html(starturl)
 	tree = html.fromstring(principal)
 	nice_content = tree.xpath('//a[@title="Ver noticia"]')
 	muchas_url = filter(lambda x: get_html(x)!="", [link.get("href") for link in nice_content])
 	print muchas_url
-	countries = ['Alemania', 'Espa&ntilde;a', 'Gran Breta&ntilde;a', 'Francia', 'Italia', 'Grecia', 'Catalu&ntilde;a', 'Portugal']
+	countries = ['Alemania', 'Espa&ntilde;a', 'Francia', 'Italia', 'Grecia', 'Portugal']
 	countries += ['Brasil', 'Argentina', 'Chile', 'Ecuador', 'Cuba', 'Venezuela', 'Estados Unidos', 'M&eacute;xico', 'Canad&aacute;']
-	countries += ['Rusia', 'India', 'Indonesia', 'China', 'Bangladesh', 'Jap&oacute;n', 'Iraq', 'Ir&aacute;n', 'Australia']
+	countries += ['Rusia', 'India', 'Indonesia', 'China', 'Bangladesh', 'Japon', 'Iraq', 'Ir&aacute;n', 'Australia']
+	countries.sort()
 	for country in countries:
 		uno = buscar(elpais_urls, [country])[0]
 		dos = buscar(muchas_url, [country])[0]
 		print '\n ' + country, '-'*(20 - len(country)), uno, '_'*(4 - len(str(uno))), dos, '_'*(4 - len(str(dos))),
 		if uno!=0:
 			print float(dos)/uno,
+
+def freq(page, word):
+	count = 0
+	pos = page.find(word)
+	while pos > 0:
+		page = page[pos + 1:]
+		pos = page.find(word)
+		count += 1
+	return count
+
+
+def crawl_wikipedia(starturl, maxi, keywords, memory = 500):
+	linkstart = 'href="/wiki/'
+	m_d = start_dir(starturl)
+	tocrawl = [[starturl, 0.]]
+	count = 0
+	crawled = []
+	csteps = []
+	record = 0
+	while count < maxi and tocrawl:
+		pagina = get_html(tocrawl[0][0])
+		if pagina != '':
+			puntos = sum([freq(pagina, word)**0.5 for word in keywords])
+			if puntos > record:
+				record = puntos
+				csteps.append(tocrawl[0][0])
+			print puntos, '   ', tocrawl[0][0]
+			new_l = [m_d + link for link in list(set(get_links(pagina)))]
+			crawled.append(tocrawl.pop(0)[0])
+			new_l = filter(lambda x: (x not in crawled and x not in tocrawl), new_l)
+			tocrawl = tocrawl + [[el, puntos] for el in new_l]
+			tocrawl.sort(key=lambda x: -x[1])
+			tocrawl = tocrawl[:memory]
+		count += 1
+	return crawled, csteps
+
 
 """
 def isuser(url):
@@ -137,10 +184,14 @@ def crawl_twitter(cuenta, n_l):
 	lis = crawl_linear(["https://twitter.com/" + cuenta + "/"], n_l, get_links)
 	print lis
 
-print get_twitter_users(get_html("https://twitter.com/Mhemeroteca"))
-print get_html("https://twitter.com/Mhemeroteca")
-crawl_twitter("Mhemeroteca", 30)
 """
 
+#crawl_elpais('http://internacional.elpais.com/')
+#crawl_elpais('http://www.elpais.com')
 
-crawl_elpais_inter()
+wkpage = 'https://es.wikipedia.org/wiki/Arroz_dorado'
+
+results = crawl_wikipedia(wkpage, 200, ['enfermedad', 'virus', 'mixomatosis', 'genetica', 'conejo'])
+
+for kk in results:
+	print kk
